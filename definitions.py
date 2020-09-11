@@ -52,5 +52,5 @@ class WebstersDefinition:
         whole_def = whole_def.rstrip()
         return whole_def
 
-        # x = re.sub(r'(\b\d\b.)', r'\n\1', self.definition)
+
 
