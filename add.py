@@ -3,7 +3,6 @@ from json import JSONDecodeError
 from aqt import mw
 from anki.hooks import addHook
 from . import definitions
-
 config = mw.addonManager.getConfig(__name__)
 
 WORD_FIELD = config['word_field']
@@ -18,11 +17,11 @@ class DefFail(Exception):
 
 def insert_definition(editor, dictionary: str):
     n = editor.note
-    # print(n['Definition'])
-    # return
     try:
         if dictionary == 'google':
             n[DEF_FIELD] = definitions.GoogleDefinition(n[WORD_FIELD]).format_def().replace('\n', '<br>')
+            if len(n[DEF_FIELD]) == 0:
+                raise DefFail
         elif dictionary == 'webster':
             definition = definitions.WebstersDefinition(n[WORD_FIELD]).format_def().replace('\n', '<br>')
             if len(definition) == 0:
